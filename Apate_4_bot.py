@@ -1,4 +1,4 @@
-# apate_3.py
+# apate_4_bot.py
 import os
 import random
 from dotenv import load_dotenv
@@ -9,7 +9,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-bot = commands.Bot(command_prefix='#')
+bot = commands.Bot(command_prefix='$')
 
 @bot.event
 async def on_ready():
@@ -38,8 +38,17 @@ async def nine_nine(ctx):
         response = random.choice(brooklyn_99_quotes)
         await ctx.send(response)
 
-bot.command(name='Stolen')
-async def Stolen(ctx):      
+@bot.command(name='Doit!')
+async def do_it(ctx):
+        doit = [
+        'https://media.giphy.com/media/qDPg6HNz2NfAk/giphy.gif',
+        ]
+    
+        response = random.choice(doit)
+        await ctx.send(response)
+
+@bot.command(name='Stolen')
+async def Stolen(ctx):
         theftcelebration = [
         'https://youtu.be/VP32mAY1bzY',
         'https://media.giphy.com/media/Io2j5ZJBss5Rm/giphy.gif',
@@ -50,16 +59,17 @@ async def Stolen(ctx):
 
         response = random.choice(theftcelebration)
         await ctx.send(response)
-        
-@bot.command(name='Doit!')
-async def do_it(ctx):
-        doit = [
-        'https://media.giphy.com/media/qDPg6HNz2NfAk/giphy.gif',
+
+@bot.command(name='StolenTG')
+async def Stolen_TG(ctx):
+        theftcelebrationTG = [
+        'https://youtu.be/VP32mAY1bzY',
+
         ]
-    
-        response = random.choice(doit)
+
+        response = random.choice(theftcelebrationTG)
         await ctx.send(response)
-    
+
 @bot.command(name='SneakySneaky')
 async def sneaky_sneaky(ctx):
         sneaky = [
@@ -71,8 +81,5 @@ async def sneaky_sneaky(ctx):
     
         response = random.choice(sneaky)
         await ctx.send(response)
-    
-
-        
 
 bot.run(TOKEN)
