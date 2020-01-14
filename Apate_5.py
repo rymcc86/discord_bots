@@ -24,7 +24,6 @@ async def on_ready():
 @client.event
 async def on_member_join(member):
         print(f'{member} has joined "{GUILD}".')
-        channel = client.get_channel()
         channel = client.get_channel(593045340064841739)
         await channel.send(f'Welcome! {member} has joined "{GUILD}", Roles will be assigned shortly.')
 
