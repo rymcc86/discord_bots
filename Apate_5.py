@@ -11,27 +11,25 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-##---- Declare Command Prefix ----##
-client = commands.Bot(command_prefix = '$')
-
-
 ##------ Events ------##
+client = discord.Client()
+
 @client.event
 async def on_ready():
-        print(f'Joined "{GUILD}". The Home of The Thieves Guild.')
+        print(f'Joined {GUILD}. The Home of The Thieves Guild.')
         print(f'Bot Ready.')
 
 @client.event
 async def on_member_join(member):
-        print(f'{member} has joined "{GUILD}".')
+        print(f'{member} has joined {GUILD}.')
         channel = client.get_channel(593045340064841739)
-        await channel.send(f'Welcome! {member} has joined "{GUILD}", Roles will be assigned shortly.')
+        await channel.send(f'Welcome! {member} has joined {GUILD}, Roles will be assigned shortly.')
 
         for channel in member.guild.channels:
             if str(channel) == "tg-general":
-                GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started\n\nYou can find a quick how to for the intel bot in the channel #tg-rules-and-info\n\nActive intel can be found in #tg-ogtheft-and-camping but please do keep chatter in this channel to a minimum!\n\nAny further questions please do ask the wider group and get to know them, most importantly: STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
-                await member.create_dm()
-                await member.dm_channel.send(GuildGreeting)
+                 GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel #tg-rules-and-info.\n\nActive intel can be found in #tg-ogtheft-and-camping but keep chatter in this channel to a minimum!\n\nAny further questions please do ask the wider group and get to know them, most importantly: STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
+                 await member.create_dm()
+                 await member.dm_channel.send(GuildGreeting)
 
 @client.event
 async def on_member_remove(member):
@@ -47,12 +45,22 @@ async def on_member_update(before,after):
         channel = client.get_channel(666596539979792398)
         await channel.send(f'{before.display_name} has been updated.')
         await channel.send(f'Before:{before.nick} \nAfter:{after.nick}')
+
     if before.roles != after.roles:
         print(f'{before.display_name} has been updated.')
         print(f'Before:{before.roles} \nAfter:{after.roles}')
         channel = client.get_channel(666596539979792398)
         await channel.send(f'{before.display_name} has been updated.')
         await channel.send(f'Before:{before.roles} \nAfter:{after.roles}')
+
+        if len(before.roles) < len(after.roles):
+            new_role = next(role for role in after.roles if role not in before.roles)
+            if new_role.name in ('Thieves Guild'):
+                channel = client.get_channel(476876411349762049)
+                await channel.send(f'{after.mention}\n"https://media.giphy.com/media/Ae7SI3LoPYj8Q/giphy.gif"')
+#           elif new_role.name in ('___role_name___'):
+#               channel = client.get_channel(___Channel_ID___)
+#               await channel.send(f'{after.mention}\n___channel_greeting___')
 
 @client.event
 async def on_message(message):
@@ -119,6 +127,13 @@ async def on_message(message):
 
             response = random.choice(theftcelebrationTG)
             await message.channel.send(response)
+
+##---- Bot Commands ----##
+bot = commands.Bot(command_prefix = '$')
+
+#--- Maintenance Window Silent Command ---#
+#silent_channels = set(['public-chat','tg-general','tg-leadership-events'])
+
 
 
 ##---- Run ----##
