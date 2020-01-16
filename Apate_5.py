@@ -26,10 +26,17 @@ async def on_member_join(member):
         await channel.send(f'Welcome! {member} has joined {GUILD}, Roles will be assigned shortly.')
 
         for channel in member.guild.channels:
-            if str(channel) == "tg-scouts-and-intel":
-                GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel rules-and-info.\n\nAny further questions please do ask the wider group and get to know them, most importantly: SEED IT ALL AND STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
+            if str(channel) == 'tg-scouts-and-intel':
+                GuildScoutsGreeting = (f'{member.name}\nWelcome to the Thieves Guild Scouts!\n\nTo help you settle in and find all of the information you require.\n\nYou can find a how-to guide for the intel bot in the channel rules-and-info, we recommend registering with the bot with the characters you intend to seed with.\n\nAdditionally in this channel there is also a PDF guide covering Citadel Theft and how it can be done.\n\nAny further questions please do ask the wider group and get to know them, most importantly: SEED IT ALL AND STEAL EVERYTHING!!!!!!!\n\nThe Guild Always Wins!')
+                await member.create_dm()
+                await member.dm_channel.send(GuildScoutsGreeting)
+                return
+
+            if str(channel) == 'tg-general':
+                GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you require.\n\nYou can find a how-to guide for the intel bot in the channel rules-and-info, we recommend registering with the bot with the characters you intend to seed with.\n\nAdditionally in this channel there is also a PDF guide covering Citadel Theft and how it can be done.\n\nAny further questions please do ask the wider group and get to know them, most importantly: SEED IT ALL AND STEAL EVERYTHING!!!!!!!\n\nThe Guild Always Wins!')
                 await member.create_dm()
                 await member.dm_channel.send(GuildGreeting)
+                return
 
 @client.event
 async def on_member_remove(member):
@@ -59,7 +66,7 @@ async def on_member_update(before,after):
                 channel = client.get_channel(476876411349762049)
                 await channel.send(f'{after.mention}\n"https://media.giphy.com/media/Ae7SI3LoPYj8Q/giphy.gif"')
 
-            elif new_role.name in ('Thieves Guild Scout'):
+            elif new_role.name in ('Thieves Guild Scouts'):
                 channel = client.get_channel(667130095474966602)
                 await channel.send(f'{after.mention}\n"https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif"')
 
