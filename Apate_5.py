@@ -25,11 +25,11 @@ async def on_member_join(member):
         channel = client.get_channel(593045340064841739)
         await channel.send(f'Welcome! {member} has joined {GUILD}, Roles will be assigned shortly.')
 
-#        for channel in member.guild.channels:
-#            if str(channel) == "tg-general":
-    #             GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel #tg-rules-and-info.\n\nActive intel can be found in #tg-ogtheft-and-camping but keep chatter in this channel to a minimum!\n\nAny further questions please do ask the wider group and get to know them, most importantly: STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
-#                 await member.create_dm()
-#                 await member.dm_channel.send(GuildGreeting)
+        for channel in member.guild.channels:
+            if str(channel) == "tg-scouts-and-intel":
+                GuildGreeting = (f'{member.name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel rules-and-info.\n\nAny further questions please do ask the wider group and get to know them, most importantly: SEED IT ALL AND STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
+                await member.create_dm()
+                await member.dm_channel.send(GuildGreeting)
 
 @client.event
 async def on_member_remove(member):
@@ -62,20 +62,6 @@ async def on_member_update(before,after):
             elif new_role.name in ('Thieves Guild Scout'):
                 channel = client.get_channel(667130095474966602)
                 await channel.send(f'{after.mention}\n"https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif"')
-
-        if len(before.roles) < len(after.roles):
-            new_role = next(role for role in after.roles if role not in before.roles)
-            if new_role.name in ('Thieves Guild'):
-                GuildGreeting = (f'{after.display_name}\nWelcome to the Thieves Guild!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel #tg-rules-and-info.\n\nActive intel can be found in #tg-ogtheft-and-camping but keep chatter in this channel to a minimum!\n\nAny further questions please do ask the wider group and get to know them, most importantly: STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
-                id = ({after.member})
-                print(id)
-                #await member.create_dm()
-                #await member.dm_channel.send(GuildGreeting)
-
-            elif new_role.name in ('Thieves Guild Scouts'):
-                GuildScoutsGreeting = (f'{after.display_name}\nWelcome to the Thieves Guild Scouts!\n\nTo help you settle in and find all of the information you requiire here\'s some quick info to get you started.\n\nYou can find a quick how-to for the intel bot in the channel #tg-rules-and-info.\n\nActive intel can be found in #tg-ogtheft-and-camping but keep chatter in this channel to a minimum!\n\nAny further questions please do ask the wider group and get to know them, most importantly: STEAL EVERYTHING!!!!!!!\n\n The Guild Always Wins!')
-                #await member.create_dm()
-                #await member.dm_channel.send(GuildScoutsGreeting)
 
 @client.event
 async def on_message(message):
